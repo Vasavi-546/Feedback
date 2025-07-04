@@ -1,0 +1,33 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Feedback App</title>
+</head>
+<body>
+  <h2>Submit Your Feedback</h2>
+  <form id="feedback-form">
+    <textarea id="feedback" placeholder="Write your feedback here..." required></textarea><br>
+    <button type="submit">Submit</button>
+  </form>
+
+  <script>
+    document.getElementById('feedback-form').onsubmit = async function(e) {
+      e.preventDefault();
+      const message = document.getElementById('feedback').value;
+
+      const response = await fetch('https://xchxcv8kih.execute-api.us-east-1.amazonaws.com/prod/feedback', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ message })
+      });
+
+      const result = await response.json();
+      alert(result.message || 'Feedback submitted!');
+    };
+  </script>
+</body>
+</html>
+
